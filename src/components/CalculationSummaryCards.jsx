@@ -1,6 +1,6 @@
 import React from 'react';
 import { DollarSign, Utensils, TrendingUp, Users } from 'lucide-react';
-import { formatCurrency, formatNumber } from '../utils/currency';
+import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 
 export const CalculationSummaryCards = ({ result }) => {
   if (!result) return null;
@@ -19,7 +19,7 @@ export const CalculationSummaryCards = ({ result }) => {
     {
       title: 'TOTAL BAZAR',
       value: formatCurrency(totalBazar),
-      subtitle: 'All grocery & mess spending',
+      subtitle: 'Total grocery spending',
       icon: DollarSign,
       gradient: 'from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20',
       iconColor: 'text-blue-600 dark:text-blue-400',
@@ -28,7 +28,7 @@ export const CalculationSummaryCards = ({ result }) => {
     {
       title: 'TOTAL MEALS',
       value: formatNumber(totalMeals),
-      subtitle: 'Combined count consumed',
+      subtitle: 'All members combined',
       icon: Utensils,
       gradient: 'from-amber-500/10 to-orange-500/10 dark:from-amber-500/20 dark:to-orange-500/20',
       iconColor: 'text-amber-600 dark:text-amber-400',
@@ -36,7 +36,7 @@ export const CalculationSummaryCards = ({ result }) => {
     },
     {
       title: 'MEAL RATE',
-      value: formatCurrency(mealRate),
+      value: formatRate(mealRate),
       subtitle: 'Cost per meal unit',
       icon: TrendingUp,
       gradient: 'from-emerald-500/15 to-teal-500/15 dark:from-emerald-500/25 dark:to-teal-500/25',
@@ -56,14 +56,14 @@ export const CalculationSummaryCards = ({ result }) => {
   ];
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
         <div>
           <span className="text-xs font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
             {messName} • {month} {year}
           </span>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Monthly Meal Summary Dashboard
+            Monthly Meal Summary
           </h2>
         </div>
       </div>

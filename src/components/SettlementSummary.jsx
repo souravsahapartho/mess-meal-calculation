@@ -13,7 +13,7 @@ export const SettlementSummary = ({ settlement = {} }) => {
   } = settlement;
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-7 border border-slate-200/80 dark:border-slate-800 shadow-card transition-colors mb-8">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-7 border border-slate-200/80 dark:border-slate-800 shadow-card transition-colors mb-8 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
         <div>
           <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
@@ -42,7 +42,7 @@ export const SettlementSummary = ({ settlement = {} }) => {
               <span className="p-1 rounded-lg bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">
                 <ArrowDownRight className="w-4 h-4" />
               </span>
-              💰 Members Getting Money Back
+              Members Getting Money Back
             </div>
             <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-100/70 dark:bg-emerald-900/60 px-2 py-0.5 rounded-full">
               {receivers.length}
@@ -83,7 +83,7 @@ export const SettlementSummary = ({ settlement = {} }) => {
               <span className="p-1 rounded-lg bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300">
                 <ArrowUpRight className="w-4 h-4" />
               </span>
-              💳 Members Who Need to Pay
+              Members Who Need to Pay
             </div>
             <span className="text-xs font-bold text-rose-700 dark:text-rose-400 bg-rose-100/70 dark:bg-rose-900/60 px-2 py-0.5 rounded-full">
               {payers.length}
@@ -123,7 +123,7 @@ export const SettlementSummary = ({ settlement = {} }) => {
         <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/50 border border-slate-200/80 dark:border-slate-800 mb-4">
           <div className="flex items-center gap-2 text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-3">
             <Sparkles className="w-4 h-4 text-emerald-500" />
-            Smart Peer-to-Peer Payment Path (Fewest Transactions)
+            Direct Settle Transactions (Fewest Steps)
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -150,7 +150,7 @@ export const SettlementSummary = ({ settlement = {} }) => {
         <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 flex items-center gap-2 text-xs text-amber-800 dark:text-amber-300 font-medium">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>
-            Rounding Adjustment: <strong>{formatCurrency(roundingDifference)}</strong> difference across fraction division. Total receive and pay match closely within standard financial tolerance.
+            Rounding Note: <strong>{formatCurrency(roundingDifference)}</strong> difference across fractional divisions.
           </span>
         </div>
       )}

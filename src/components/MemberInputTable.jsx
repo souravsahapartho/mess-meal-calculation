@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus, Trash2, Users, Calculator, AlertCircle } from 'lucide-react';
-import { formatCurrency, formatNumber } from '../utils/currency';
+import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 
 export const MemberInputTable = ({
   members,
@@ -24,7 +24,7 @@ export const MemberInputTable = ({
             Member Bazar & Meal Entries
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Enter each member's total grocery/bazar expense and consumed meal count
+            Enter each member's total grocery expense and meal count
           </p>
         </div>
 
@@ -91,6 +91,7 @@ export const MemberInputTable = ({
                   )}
                 </div>
 
+                {/* Bazar Contribution - No mouse wheel scroll change & no spin arrows */}
                 <div className="sm:col-span-3">
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Bazar (৳)
@@ -103,10 +104,11 @@ export const MemberInputTable = ({
                       type="number"
                       min="0"
                       step="any"
+                      onWheel={(e) => e.target.blur()}
                       value={member.bazar === 0 ? '' : member.bazar}
                       onChange={(e) => onUpdateMember(member.id, 'bazar', e.target.value)}
-                      placeholder="0.00"
-                      className={`w-full bg-white dark:bg-slate-900 border rounded-xl pl-8 pr-3.5 py-2.5 text-sm font-semibold text-slate-900 dark:text-white placeholder-slate-400 outline-none transition-all text-right ${
+                      placeholder="0"
+                      className={`w-full bg-white dark:bg-slate-900 border rounded-xl pl-8 pr-3.5 py-2.5 text-sm font-semibold text-slate-900 dark:text-white placeholder-slate-400 outline-none transition-all text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                         rowError.bazar
                           ? 'border-rose-400 dark:border-rose-700 focus:ring-2 focus:ring-rose-500'
                           : 'border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-500'
@@ -120,6 +122,7 @@ export const MemberInputTable = ({
                   )}
                 </div>
 
+                {/* Meal Count - No mouse wheel scroll change & no spin arrows */}
                 <div className="sm:col-span-3">
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Meals Count
@@ -129,10 +132,11 @@ export const MemberInputTable = ({
                       type="number"
                       min="0"
                       step="any"
+                      onWheel={(e) => e.target.blur()}
                       value={member.meals === 0 ? '' : member.meals}
                       onChange={(e) => onUpdateMember(member.id, 'meals', e.target.value)}
                       placeholder="0"
-                      className={`w-full bg-white dark:bg-slate-900 border rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-900 dark:text-white placeholder-slate-400 outline-none transition-all text-center ${
+                      className={`w-full bg-white dark:bg-slate-900 border rounded-xl px-3.5 py-2.5 text-sm font-semibold text-slate-900 dark:text-white placeholder-slate-400 outline-none transition-all text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                         rowError.meals
                           ? 'border-rose-400 dark:border-rose-700 focus:ring-2 focus:ring-rose-500'
                           : 'border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-500'
@@ -146,6 +150,7 @@ export const MemberInputTable = ({
                   )}
                 </div>
 
+                {/* Delete button */}
                 <div className="sm:col-span-1 flex items-center justify-end sm:justify-center pt-2 sm:pt-6">
                   <button
                     type="button"
@@ -181,7 +186,7 @@ export const MemberInputTable = ({
           </span>
           {liveSummary.estimatedRate > 0 && (
             <span className="px-3 py-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300 border border-emerald-300/60 dark:border-emerald-800">
-              Est. Rate: <strong>{formatCurrency(liveSummary.estimatedRate)}</strong>
+              Est. Rate: <strong>{formatRate(liveSummary.estimatedRate)}</strong>
             </span>
           )}
         </div>

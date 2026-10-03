@@ -4,7 +4,7 @@ import { ArrowUpRight, ArrowDownRight, Check, Users } from 'lucide-react';
 
 export const MobileResultCards = ({ members = [] }) => {
   return (
-    <div className="md:hidden space-y-3.5 mb-8">
+    <div className="md:hidden space-y-3.5 mb-8 w-full">
       <div className="flex items-center justify-between px-1 mb-2">
         <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <Users className="w-4 h-4 text-emerald-600" />
