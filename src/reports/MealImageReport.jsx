@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
+import { formatCurrency, formatNumber } from '../utils/currency';
 import { Utensils, Calendar, Users, ArrowRightLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export const MealImageReport = forwardRef(({ reportData }, ref) => {
@@ -40,7 +40,7 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
               {messName}
             </h1>
             <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mt-0.5">
-              Monthly Meal Calculation Report
+              Official Monthly Meal Calculation Report
             </p>
           </div>
         </div>
@@ -83,7 +83,7 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
             Meal Rate
           </span>
           <span className="text-2xl font-black text-emerald-700 block tracking-tight">
-            {formatRate(mealRate)}
+            {formatCurrency(mealRate)}
           </span>
           <span className="text-[10px] text-emerald-600 font-semibold mt-1 block">Cost per meal unit</span>
         </div>
@@ -137,17 +137,17 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
                   </td>
                   <td className="py-3.5 px-4 text-center">
                     {m.status === 'GET BACK' ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                         GET BACK {formatCurrency(m.balance)}
                       </span>
                     ) : m.status === 'PAY' ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
                         PAY {formatCurrency(Math.abs(m.balance))}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700">
                         ✓ SETTLED
                       </span>
                     )}
@@ -239,7 +239,7 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
             Transparent Calculation Formulas:
           </span>
           <span>
-            Meal Rate = Total Bazar ({formatCurrency(totalBazar)}) ÷ Total Meals ({formatNumber(totalMeals)}) = <strong>{formatRate(mealRate)}</strong>
+            Meal Rate = Total Bazar ({formatCurrency(totalBazar)}) ÷ Total Meals ({formatNumber(totalMeals)}) = <strong>{formatCurrency(mealRate)}</strong>
             &nbsp;•&nbsp; Member Meal Cost = Meals × Meal Rate &nbsp;•&nbsp; Balance = Bazar − Meal Cost
           </span>
         </div>
@@ -250,10 +250,12 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
         <div className="flex items-center gap-2">
           <span className="font-bold text-emerald-700">MealMate</span>
           <span>•</span>
-          <span>Mess Meal Calculator</span>
+          <span>Mess & Shared Living Meal Calculator</span>
         </div>
         <div>
           <span>{month} {year} Report</span>
+          <span className="mx-2">•</span>
+          <span>100% Client-Side Privacy Guaranteed</span>
         </div>
       </div>
     </div>

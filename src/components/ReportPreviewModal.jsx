@@ -50,16 +50,15 @@ export const ReportPreviewModal = ({ isOpen, onClose, reportData }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-white dark:bg-slate-900 w-full max-w-5xl rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[92vh] animate-fade-in my-auto">
-        {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-950/50 shrink-0">
+      <div className="bg-white dark:bg-slate-900 w-full max-w-5xl rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden flex flex-col max-h-[95vh] animate-fade-in my-auto">
+        <div className="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/60 dark:bg-slate-950/40 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                Monthly Report Preview & Export
+                Official Report Preview & Export
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 {reportData.messName} • {reportData.month} {reportData.year}
@@ -75,18 +74,17 @@ export const ReportPreviewModal = ({ isOpen, onClose, reportData }) => {
           </button>
         </div>
 
-        {/* Action Controls */}
         <div className="p-3 sm:p-4 bg-emerald-50/50 dark:bg-emerald-950/20 border-b border-emerald-100 dark:border-emerald-900/30 flex flex-wrap items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-2 text-xs font-semibold text-emerald-800 dark:text-emerald-300">
             <Sparkles className="w-4 h-4 text-emerald-600" />
-            Export high-definition report ready for WhatsApp & Messenger
+            Ready to export or share on WhatsApp, Messenger & Email
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleDownloadPDF}
               disabled={isPdfLoading}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all cursor-pointer"
             >
               {isPdfLoading ? (
                 <>
@@ -101,7 +99,7 @@ export const ReportPreviewModal = ({ isOpen, onClose, reportData }) => {
               )}
             </button>
 
-            <div className="inline-flex items-center rounded-xl bg-slate-900 text-white dark:bg-slate-800 p-0.5 shadow-sm">
+            <div className="inline-flex items-center rounded-xl bg-slate-900 text-white dark:bg-slate-800 p-0.5 shadow-md">
               <select
                 value={imageFormat}
                 onChange={(e) => setImageFormat(e.target.value)}
@@ -141,19 +139,17 @@ export const ReportPreviewModal = ({ isOpen, onClose, reportData }) => {
           </div>
         </div>
 
-        {/* Scrollable & Scaled Preview Area */}
-        <div className="p-3 sm:p-6 overflow-auto flex-1 bg-slate-100 dark:bg-slate-950 flex justify-center items-start">
-          <div className="w-full max-w-[1000px] overflow-x-auto rounded-2xl shadow-xl bg-white">
+        <div className="p-4 sm:p-8 overflow-y-auto flex-1 bg-slate-100 dark:bg-slate-950 flex justify-center items-start">
+          <div className="w-full max-w-[1000px] overflow-x-auto rounded-2xl shadow-xl">
             <MealImageReport ref={reportCaptureRef} reportData={reportData} />
           </div>
         </div>
 
-        {/* Modal Footer */}
-        <div className="p-3.5 sm:p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between text-xs text-slate-500 shrink-0">
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between text-xs text-slate-500 shrink-0">
           <span>Both PDF and Image use identical calculations.</span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-200 transition-colors"
+            className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-200"
           >
             Close Preview
           </button>

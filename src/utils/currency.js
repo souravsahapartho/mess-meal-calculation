@@ -43,16 +43,14 @@ export const formatCurrency = (
  */
 export const formatRate = (rate, customSymbol = CURRENCY_SYMBOL) => {
   if (rate === null || rate === undefined || isNaN(rate)) return `${customSymbol}0`;
-  // If exact whole number
   if (Number.isInteger(rate)) {
     return `${customSymbol}${rate}`;
   }
-  // Show 2 decimal places for precise meal rate, e.g. ৳50.74
   return `${customSymbol}${rate.toFixed(2)}`;
 };
 
 /**
- * Format numbers (meal counts) - clean integer or .5
+ * Format numbers (meal counts) - clean integer or decimal
  */
 export const formatNumber = (num) => {
   if (num === null || num === undefined || isNaN(num)) return '0';
@@ -60,7 +58,6 @@ export const formatNumber = (num) => {
   if (Number.isInteger(val)) {
     return val.toLocaleString('en-US');
   }
-  // Keep up to 1 decimal for half meals like 35.5
   return parseFloat(val.toFixed(1)).toLocaleString('en-US');
 };
 

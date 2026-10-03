@@ -1,5 +1,5 @@
-import React from 'react';
-import { Plus, Trash2, Users, Calculator, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Plus, Trash2, Users, Calculator, AlertCircle, AlertTriangle } from 'lucide-react';
 import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 
 export const MemberInputTable = ({
@@ -12,6 +12,24 @@ export const MemberInputTable = ({
   validationErrors = {},
   liveSummary = {}
 }) => {
+  const [rowToDelete, setRowToDelete] = useState(null);
+
+  const handleRequestDelete = (member) => {
+    // If empty row, delete directly; if has name or data, confirm with user
+    if (!member.name && !member.bazar && !member.meals) {
+      onRemoveMember(member.id);
+    } else {
+      setRowToDelete(member);
+    }
+  };
+
+  const handleConfirmRowDelete = () => {
+    if (rowToDelete) {
+      onRemoveMember(rowToDelete.id);
+      setRowToDelete(null);
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-7 border border-slate-200/80 dark:border-slate-800 shadow-card transition-colors mb-8">
       {/* Table Header Controls */}
@@ -32,7 +50,7 @@ export const MemberInputTable = ({
           <button
             type="button"
             onClick={onOpenSavedModal}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/60 dark:border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/60 dark:border-slate-700 transition-colors cursor-pointer"
           >
             <Users className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             Pick Saved Profiles
@@ -41,7 +59,7 @@ export const MemberInputTable = ({
           <button
             type="button"
             onClick={onAddMember}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300/80 dark:border-emerald-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300/80 dark:border-emerald-700 transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add Row
           </button>
@@ -91,7 +109,6 @@ export const MemberInputTable = ({
                   )}
                 </div>
 
-                {/* Bazar Contribution - No mouse wheel scroll change & no spin arrows */}
                 <div className="sm:col-span-3">
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Bazar (৳)
@@ -122,7 +139,6 @@ export const MemberInputTable = ({
                   )}
                 </div>
 
-                {/* Meal Count - No mouse wheel scroll change & no spin arrows */}
                 <div className="sm:col-span-3">
                   <label className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Meals Count
@@ -150,14 +166,13 @@ export const MemberInputTable = ({
                   )}
                 </div>
 
-                {/* Delete button */}
                 <div className="sm:col-span-1 flex items-center justify-end sm:justify-center pt-2 sm:pt-6">
                   <button
                     type="button"
-                    onClick={() => onRemoveMember(member.id)}
+                    onClick={() => handleRequestDelete(member)}
                     disabled={members.length <= 1}
-                    className="p-2.5 rounded-xl text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                    title="Remove this member"
+                    className="p-2.5 rounded-xl text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+                    title="Remove this row"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -172,7 +187,7 @@ export const MemberInputTable = ({
         <button
           type="button"
           onClick={onAddMember}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 text-slate-600 dark:text-slate-300 hover:text-emerald-600 font-bold text-sm transition-all"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 text-slate-600 dark:text-slate-300 hover:text-emerald-600 font-bold text-sm transition-all cursor-pointer"
         >
           <Plus className="w-4 h-4" /> + Add Another Member
         </button>
@@ -202,6 +217,37 @@ export const MemberInputTable = ({
           <span>Calculate Monthly Settlement</span>
         </button>
       </div>
+
+      {/* Row Delete Confirmation Dialog */}
+      {rowToDelete && (
+        <div className="fixed inset-0 z-[60] bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 animate-fade-in text-center">
+            <div className="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="w-6 h-6" />
+            </div>
+            <h4 className="text-base font-bold text-slate-900 dark:text-white mb-1.5">
+              Remove Member Entry?
+            </h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
+              Are you sure you want to remove <strong className="text-slate-800 dark:text-slate-200">"{rowToDelete.name || 'this row'}"</strong> from current calculation?
+            </p>
+            <div className="flex items-center justify-center gap-3">
+              <button
+                onClick={() => setRowToDelete(null)}
+                className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmRowDelete}
+                className="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-white bg-rose-600 hover:bg-rose-700 transition-colors shadow-sm"
+              >
+                Yes, Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -15,7 +15,6 @@ import {
 import { calculateMonthlySummary, calculateTotalBazar, calculateTotalMeals, calculateMealRate } from './utils/calculations';
 import { generateMealPDF } from './utils/pdfGenerator';
 import { generateMealImage } from './utils/imageGenerator';
-import { formatRate } from './utils/currency';
 import { useToast, toast } from './hooks/useToast';
 import { ToastContainer } from './components/ToastContainer';
 
@@ -231,7 +230,7 @@ export function App() {
     setHistory(updatedHistory);
 
     setCurrentStep(3);
-    toast.success(`Calculated for ${month} ${year}! Meal Rate: ${formatRate(summary.mealRate)}`);
+    toast.success(`Calculated for ${month} ${year}! Meal Rate: ৳${summary.mealRate.toFixed(2)}`);
 
     try {
       confetti({
@@ -323,7 +322,7 @@ export function App() {
       meals: ''
     })));
     setCalculationResult(null);
-    toast.success('All stored data cleared.');
+    toast.success('All local data cleared.');
   };
 
   const handleLoadHistoryItem = (item) => {
@@ -360,12 +359,13 @@ export function App() {
         historyCount={history.length}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <Hero
           onStartClick={() => {
             const el = document.getElementById('config-section');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
+          onManageMembers={() => setIsMemberManagerOpen(true)}
         />
 
         <StepIndicator
@@ -379,7 +379,7 @@ export function App() {
           }}
         />
 
-        <div id="config-section" className="w-full">
+        <div id="config-section">
           <MonthYearSelector
             month={month}
             year={year}
@@ -403,7 +403,7 @@ export function App() {
         </div>
 
         {calculationResult && (
-          <div ref={resultsRef} className="pt-6 animate-fade-in w-full">
+          <div ref={resultsRef} className="pt-6 animate-fade-in">
             <CalculationSummaryCards result={calculationResult} />
             <DesktopResultTable members={calculationResult.members} />
             <MobileResultCards members={calculationResult.members} />
@@ -455,7 +455,7 @@ export function App() {
         onClose={() => setIsResetConfirmOpen(false)}
         onConfirm={handleConfirmReset}
         title="Reset Form Entries?"
-        description="This will clear the current grocery and meal inputs on the form. Your saved member profiles will not be deleted."
+        description="This will clear the current bazar and meal inputs on the form. Your saved member profiles will not be deleted."
         confirmText="Reset Form"
       />
 
@@ -463,7 +463,7 @@ export function App() {
         isOpen={isClearAllConfirmOpen}
         onClose={() => setIsClearAllConfirmOpen(false)}
         onConfirm={handleConfirmClearAll}
-        title="Clear Stored Data?"
+        title="Clear All Stored Data?"
         description="This will remove all saved member profiles, calculation history, and settings stored in your browser."
         confirmText="Clear Everything"
       />
