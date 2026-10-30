@@ -94,7 +94,7 @@ export const MemberInputTable = ({
                       type="text"
                       value={member.name}
                       onChange={(e) => onUpdateMember(member.id, 'name', e.target.value)}
-                      placeholder="e.g. Rahim"
+                      placeholder="e.g. Sourav"
                       className={`w-full bg-white dark:bg-slate-900 border rounded-xl px-3.5 py-2.5 text-sm font-bold text-slate-900 dark:text-white placeholder-slate-400 outline-none transition-all ${
                         rowError.name
                           ? 'border-rose-400 dark:border-rose-700 focus:ring-2 focus:ring-rose-500'

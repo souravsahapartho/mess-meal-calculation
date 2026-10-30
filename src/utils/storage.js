@@ -7,11 +7,12 @@ const STORAGE_KEYS = {
 };
 
 const DEFAULT_MEMBERS = [
-  { id: 'm-1', name: 'Rahim' },
-  { id: 'm-2', name: 'Karim' },
-  { id: 'm-3', name: 'Sakib' },
-  { id: 'm-4', name: 'Fahim' },
-  { id: 'm-5', name: 'Nayeem' },
+  { id: 'm-1', name: 'Sourav' },
+  { id: 'm-2', name: 'Ratul' },
+  { id: 'm-3', name: 'Sun' },
+  { id: 'm-4', name: 'Abdullah' },
+  { id: 'm-5', name: 'Neloy' },
+  { id: 'm-6', name: 'Vai' },
 ];
 
 export const getSavedMembers = () => {
@@ -19,7 +20,16 @@ export const getSavedMembers = () => {
     const raw = localStorage.getItem(STORAGE_KEYS.MEMBERS);
     if (!raw) return DEFAULT_MEMBERS;
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_MEMBERS;
+    if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_MEMBERS;
+
+    // Auto-migrate from previous default if user had old default profiles
+    const isOldDefault = parsed.length === 5 && parsed[0]?.name === 'Rahim';
+    if (isOldDefault) {
+      saveMembers(DEFAULT_MEMBERS);
+      return DEFAULT_MEMBERS;
+    }
+
+    return parsed;
   } catch (e) {
     console.error('Error reading saved members:', e);
     return DEFAULT_MEMBERS;

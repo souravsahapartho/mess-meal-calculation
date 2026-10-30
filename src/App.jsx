@@ -72,7 +72,7 @@ export function App() {
   const [savedMembers, setSavedMembers] = useState(() => getSavedMembers());
   const [activeMembers, setActiveMembers] = useState(() => {
     const saved = getSavedMembers();
-    return saved.slice(0, 5).map((m, idx) => ({
+    return (saved.length > 0 ? saved : []).slice(0, 6).map((m, idx) => ({
       id: m.id || `active_${idx}`,
       name: m.name,
       bazar: '',
