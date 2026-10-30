@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  // Exact GitHub Pages base path ensures 100% reliable asset resolution
-  base: '/mess-meal-calculation/',
+  // In dev server, use '/' so http://localhost:3000/ loads directly
+  // In production build, use './' relative paths so it loads cleanly on GitHub Pages (/mess-meal-calculation/) without path breakage
+  base: command === 'serve' ? '/' : './',
   build: {
     outDir: 'dist',
     sourcemap: false,
@@ -23,4 +23,4 @@ export default defineConfig({
     port: 3000,
     host: true
   }
-})
+}))
