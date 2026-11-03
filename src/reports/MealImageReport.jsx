@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { formatCurrency, formatNumber } from '../utils/currency';
+import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 import { Utensils, Calendar, Users, ArrowRightLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export const MealImageReport = forwardRef(({ reportData }, ref) => {
@@ -83,7 +83,7 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
             Meal Rate
           </span>
           <span className="text-2xl font-black text-emerald-700 block tracking-tight">
-            {formatCurrency(mealRate)}
+            {formatRate(mealRate)}
           </span>
           <span className="text-[10px] text-emerald-600 font-semibold mt-1 block">Cost per meal unit</span>
         </div>
@@ -239,7 +239,7 @@ export const MealImageReport = forwardRef(({ reportData }, ref) => {
             Transparent Calculation Formulas:
           </span>
           <span>
-            Meal Rate = Total Bazar ({formatCurrency(totalBazar)}) ÷ Total Meals ({formatNumber(totalMeals)}) = <strong>{formatCurrency(mealRate)}</strong>
+            Meal Rate = Total Bazar ({formatCurrency(totalBazar)}) ÷ Total Meals ({formatNumber(totalMeals)}) = <strong>{formatRate(mealRate)}</strong>
             &nbsp;•&nbsp; Member Meal Cost = Meals × Meal Rate &nbsp;•&nbsp; Balance = Bazar − Meal Cost
           </span>
         </div>

@@ -39,14 +39,13 @@ export const formatCurrency = (
 };
 
 /**
- * Format meal rate (can show 2 decimals or rounded)
+ * Format meal rate with 2 decimal places precision
+ * (e.g. 52.338 -> ৳52.34, 52.3 -> ৳52.30)
  */
 export const formatRate = (rate, customSymbol = CURRENCY_SYMBOL) => {
-  if (rate === null || rate === undefined || isNaN(rate)) return `${customSymbol}0`;
-  if (Number.isInteger(rate)) {
-    return `${customSymbol}${rate}`;
-  }
-  return `${customSymbol}${rate.toFixed(2)}`;
+  if (rate === null || rate === undefined || isNaN(rate)) return `${customSymbol}0.00`;
+  const val = Number(rate);
+  return `${customSymbol}${val.toFixed(2)}`;
 };
 
 /**

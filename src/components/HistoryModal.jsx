@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, History, Trash2, ExternalLink, FileText } from 'lucide-react';
-import { formatCurrency, formatNumber } from '../utils/currency';
+import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 import { generateMealPDF } from '../utils/pdfGenerator';
 import { toast } from '../hooks/useToast';
 
@@ -77,7 +77,7 @@ export const HistoryModal = ({
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium mt-1.5">
-                      <span>Rate: <strong className="text-emerald-600 dark:text-emerald-400 font-bold">{formatCurrency(item.mealRate)}</strong></span>
+                      <span>Rate: <strong className="text-emerald-600 dark:text-emerald-400 font-bold">{formatRate(item.mealRate)}</strong></span>
                       <span>•</span>
                       <span>Total Bazar: <strong>{formatCurrency(item.totalBazar)}</strong></span>
                       <span>•</span>

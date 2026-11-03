@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { formatCurrency, formatNumber } from './currency';
+import { formatCurrency, formatNumber, formatRate } from './currency';
 
 export const generateMealPDF = async (reportData) => {
   const {
@@ -77,7 +77,7 @@ export const generateMealPDF = async (reportData) => {
   const kpis = [
     { label: 'TOTAL BAZAR', value: formatCurrency(totalBazar) },
     { label: 'TOTAL MEALS', value: formatNumber(totalMeals) },
-    { label: 'MEAL RATE', value: formatCurrency(mealRate) },
+    { label: 'MEAL RATE', value: formatRate(mealRate) },
     { label: 'MEMBERS', value: `${memberCount} Persons` }
   ];
 
@@ -277,7 +277,7 @@ export const generateMealPDF = async (reportData) => {
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...mutedSlate);
   doc.text(
-    `Meal Rate = Total Bazar (${formatCurrency(totalBazar)}) / Total Meals (${formatNumber(totalMeals)}) = ${formatCurrency(mealRate)} per meal.`,
+    `Meal Rate = Total Bazar (${formatCurrency(totalBazar)}) / Total Meals (${formatNumber(totalMeals)}) = ${formatRate(mealRate)} per meal.`,
     margin + 4,
     currentY + 9.5
   );

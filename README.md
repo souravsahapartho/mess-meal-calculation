@@ -73,3 +73,4 @@ npm run preview
 ## 📄 License
 
 MIT License. Designed and developed with ❤️ for simplified shared living meal management.
+

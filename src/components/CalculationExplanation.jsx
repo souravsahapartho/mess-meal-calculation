@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
-import { formatCurrency, formatNumber } from '../utils/currency';
+import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 
 export const CalculationExplanation = ({ result }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +45,7 @@ export const CalculationExplanation = ({ result }) => {
                 Meal Rate = Total Bazar ÷ Total Meals
               </p>
               <p className="text-xs text-slate-500">
-                {formatCurrency(totalBazar)} ÷ {formatNumber(totalMeals)} = <strong>{formatCurrency(mealRate)}</strong>
+                {formatCurrency(totalBazar)} ÷ {formatNumber(totalMeals)} = <strong>{formatRate(mealRate)}</strong>
               </p>
             </div>
 

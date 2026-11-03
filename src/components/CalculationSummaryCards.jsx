@@ -1,6 +1,6 @@
 import React from 'react';
 import { DollarSign, Utensils, TrendingUp, Users } from 'lucide-react';
-import { formatCurrency, formatNumber } from '../utils/currency';
+import { formatCurrency, formatNumber, formatRate } from '../utils/currency';
 
 export const CalculationSummaryCards = ({ result }) => {
   if (!result) return null;
@@ -36,7 +36,7 @@ export const CalculationSummaryCards = ({ result }) => {
     },
     {
       title: 'MEAL RATE',
-      value: formatCurrency(mealRate),
+      value: formatRate(mealRate),
       subtitle: 'Cost per meal unit',
       icon: TrendingUp,
       gradient: 'from-emerald-500/15 to-teal-500/15 dark:from-emerald-500/25 dark:to-teal-500/25',
